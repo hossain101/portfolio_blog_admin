@@ -1,12 +1,12 @@
-import Dashboard from "@/components/Dashboard";
 import InputForm from "@/components/BlogInputForm";
+import ExperienceInputForm from "@/components/ExperienceInputForm";
 import React from "react";
 
 const page = () => {
   return (
     <section>
       <div>
-        <Dashboard />
+        <ExperienceInputForm />
       </div>
     </section>
   );

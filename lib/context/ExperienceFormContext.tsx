@@ -1,11 +1,11 @@
 
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createNewPost, deletePost, updatePost } from "../firebase/post/write";
-import { getPost } from "../firebase/post/read";
+import { createNewExperience, deleteExperience, updateExperience } from "../firebase/experience/write";
+import { getPost } from "../firebase/experience/read";
 
 
-export interface PostFormContextType {
+export interface ExperienceFormContextType {
   data: Record<string, string>;
   isLoading: boolean;
   error: null | string;
@@ -20,9 +20,9 @@ export interface PostFormContextType {
   handleDelete: (id: string) => Promise<void>;
 }
 
-const PostFormContext = createContext<PostFormContextType | undefined>(undefined);
+const ExperienceFormContext = createContext<ExperienceFormContextType | undefined>(undefined);
 
-const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
+const ExperienceFormContextProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const updatePostId = searchParams.get("id");
@@ -44,7 +44,7 @@ const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
       if (!data || !image) {
         throw new Error("Data or image is missing");
       }
-      await createNewPost(data, image);
+      await createNewExperience(data, image);
       setIsDone(true);
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
@@ -59,7 +59,7 @@ const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
       if (!data || !image) {
         throw new Error("Data or image is missing");
       }
-      await updatePost(data, image);
+      await updateExperience(data, image);
       setIsDone(true);
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
@@ -71,7 +71,7 @@ const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
   const handleDelete = async (id: string) => {
     setIsLoading(true);
     try {
-      await deletePost(id);
+      await deleteExperience(id);
       setIsDone(true);
       router.push("/admin/posts");
     } catch (error) {
@@ -96,7 +96,7 @@ const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <PostFormContext.Provider
+    <ExperienceFormContext.Provider
       value={{
         data,
         isLoading,
@@ -113,10 +113,10 @@ const PostFormContextProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-    </PostFormContext.Provider>
+    </ExperienceFormContext.Provider>
   );
 };
 
-export const usePostForm = () => useContext(PostFormContext);
+export const useExperienceForm = () => useContext(ExperienceFormContext);
 
-export default PostFormContextProvider;
+export default ExperienceFormContextProvider;

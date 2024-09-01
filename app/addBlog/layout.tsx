@@ -10,7 +10,7 @@ const Layout = ({
   return (
     <>
       <PostFormContextProvider>
-        <section className="flex">{children}</section>
+        <section className="">{children}</section>
       </PostFormContextProvider>
     </>
   );

@@ -1,11 +1,12 @@
 "use client";
 
-import { usePostForm } from "@/lib/context/PostFormContext";
+import { useExperienceForm } from "@/lib/context/ExperienceFormContext";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
+import { RTEField } from "./RTEField";
 
-export default function InputForm() {
-  const postForm = usePostForm();
+export default function ExperienceInputForm() {
+  const postForm = useExperienceForm();
   const handelCreate = postForm?.handleCreate;
   const handleData = postForm?.handleData;
   const data = postForm?.data;
@@ -19,17 +20,19 @@ export default function InputForm() {
   const handleUpdate = postForm?.handleUpdate;
   const handleDelete = postForm?.handleDelete;
   return (
-    <section>
-      <div className="w-full max-w-4xl mx-auto p-6 md:p-10">
-        <h1 className="text-3xl font-bold mb-6">Add New Blog Post</h1>
+    <section className="">
+      <div className=" p-6 md:p-10">
+        <h1 className="text-3xl font-bold mb-6 text-center">
+          Add New Experience 
+        </h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handelCreate!();
           }}
-          className="space-y-6"
+          className="space-y-6  items-center"
         >
-          <div className="flex">
+          <div className="flex ">
             <div className="grid grid-cols-2  gap-3">
               {/* Title Input */}
               <Input
@@ -38,7 +41,7 @@ export default function InputForm() {
                 type="title"
                 label="Title"
                 variant="bordered"
-                placeholder="Post Title"
+                placeholder="Experience Title"
                 onChange={(e) => {
                   handleData!("title", e.target.value);
                 }}
@@ -49,67 +52,39 @@ export default function InputForm() {
               {/* Category Input */}
               <Input
                 isClearable
-                description="E.g Web Dev, Mobile App"
-                type="category"
-                label="Category"
+                description="E.g Hilti"
+                type="company"
+                label="Company"
                 variant="bordered"
-                placeholder="Post Category"
+                placeholder="Company Name"
                 onChange={(e) => {
-                  handleData!("category", e.target.value);
+                  handleData!("company", e.target.value);
                 }}
                 value={data?.category}
                 onClear={() => console.log("input cleared")}
                 className="max-w-lg"
               />
-              {/* Technology */}
+              {/* TechStack */}
               <Input
                 isClearable
-                description="E.g Next.js, Flutter"
-                type="technology"
-                label="Technology"
+                description="E.g. 2022 - 2023"
+                type="year"
+                label="Year"
                 variant="bordered"
-                placeholder="Technology Used"
+                placeholder="Timeline"
                 onChange={(e) => {
-                  handleData!("technology", e.target.value);
+                  handleData!("year", e.target.value);
                 }}
-                value={data?.technology}
+                value={data?.TechStack}
                 onClear={() => console.log("input cleared")}
                 className="max-w-lg"
               />
-              {/* Footer Text */}
-              <Input
-                isClearable
-                description="Footer Description"
-                type="footerText"
-                label="Footer Text"
-                variant="bordered"
-                placeholder="Footer"
-                onChange={(e) => {
-                  handleData!("footerText", e.target.value);
-                }}
-                value={data?.footerText}
-                onClear={() => console.log("input cleared")}
-                className="max-w-lg"
-              />
-              {/* Footer URL */}
-              <Input
-                isClearable
-                description="Footer URL"
-                type="footerUrl"
-                label="Footer URL"
-                variant="bordered"
-                placeholder="Technology Used"
-                onChange={(e) => {
-                  handleData!("footerURL", e.target.value);
-                }}
-                value={data?.footerURL}
-                onClear={() => console.log("input cleared")}
-                className="max-w-lg"
-              />
+              
+             
               {/* Image Input */}
               <Input
                 isClearable
-                description="Blog Image"
+                description="Experience Image"
                 type="file"
                 label="Image"
                 variant="bordered"
@@ -121,14 +96,16 @@ export default function InputForm() {
               />
             </div>
           </div>
+          <div className="max-w-5xl flex flex-col gap-y-3">
+            <h1 className="text-gray-500">Content</h1>
+            <RTEField />
+          </div>
           <button
-              type="submit"
-              className="bg-blue-500 rounded-full py-2 px-4 gap-2 flex"
-              
-            >
-              
-              {isLoading ? "Loading..." : updatePostId ? "update" : "Add Post"}
-            </button>
+            type="submit"
+            className="bg-blue-500 rounded-full py-2 px-4 gap-2 flex"
+          >
+            {isLoading ? "Loading..." : updatePostId ? "update" : "Add Post"}
+          </button>
         </form>
       </div>
     </section>

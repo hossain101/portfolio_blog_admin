@@ -1,11 +1,12 @@
-import InputForm from "@/components/InputForm";
+import BlogInputForm from "@/components/BlogInputForm";
+
 import React from "react";
 
 const page = () => {
   return (
     <section>
       <div>
-        <InputForm />
+        <BlogInputForm />
       </div>
     </section>
   );
